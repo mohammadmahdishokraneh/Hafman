@@ -1,9 +1,13 @@
 public class Node {
     String character;
     int repetition;
-
     Node right;
     Node left;
+
+    public Node(String character, int repetition) {
+
+    }
+
 
     public String getCharacter() {
         return character;
