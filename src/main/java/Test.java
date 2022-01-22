@@ -4,6 +4,9 @@ public class Test {
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
+        Huffman h = new Huffman();
+        h.getMain();
+
 
 
     }
