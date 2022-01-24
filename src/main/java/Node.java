@@ -1,27 +1,17 @@
 public class Node {
-    String character;
-    int repetition;
+    private Element element;
     Node right;
     Node left;
 
-    public Node(String character, int repetition) {
-
+    public Node(Element element) {
+        this.element = element;
     }
 
-
-    public String getCharacter() {
-        return character;
+    public Element getElement() {
+        return element;
     }
 
-    public int getRepetition() {
-        return repetition;
-    }
-
-    public void setCharacter(String character) {
-        this.character = character;
-    }
-
-    public void setRepetition(int repetition) {
-        this.repetition = repetition;
+    public void setElement(Element element) {
+        this.element = element;
     }
 }
