@@ -71,10 +71,11 @@ public class Huffman {
 
     public void writeCodedFile(byte b) throws IOException {
         File coddingFile = new File("Text.txt");
-        FileWriter fileWriter = new FileWriter(coddingFile );
-        BufferedWriter writer = new BufferedWriter(fileWriter);
-        writer.write(b);
-        writer.close();
+        FileOutputStream out = new FileOutputStream(coddingFile);
+        out.write(b);
+        //BufferedWriter writer = new BufferedWriter(fileWriter);
+       // writer.write(b);
+       // writer.close();
 
 
         //whit buffer writer
@@ -82,9 +83,9 @@ public class Huffman {
 
     public void readCodedFile() throws IOException {
         File coddingFile = new File("Text.txt");
-        FileReader fileWriter = new FileReader(coddingFile );
-        BufferedReader reader = new BufferedReader(fileWriter);
-        String s = reader.readLine();
+        FileInputStream in = new FileInputStream(coddingFile);
+        //BufferedReader reader = new BufferedReader(fileWriter);
+        byte b = (byte) in.read();
 
         //byte [] bytes =
 
