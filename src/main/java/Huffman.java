@@ -26,6 +26,7 @@ public class Huffman {
     int xR = 0;
     int yR = 0;
     int zR = 0;
+    int spaceR = 0;
 
     public void getMain() {
         String main = Test.input.nextLine();
@@ -41,93 +42,96 @@ public class Huffman {
 
         for (int i = 0; i < s.length; i++) {
             switch (s[i]) {
-                case "a":
-                    aR++;
-                    break;
-                case "b":
-                    bR++;
-                    break;
-                case "c":
-                    cR++;
-                    break;
-                case "d":
-                    dR++;
-                    break;
-                case "e":
-                    eR++;
-                    break;
-                case "f":
-                    fR++;
-                    break;
-                case "g":
-                    gR++;
-                    break;
-                case "h":
-                    hR++;
-                    break;
-                case "i":
-                    iR++;
-                    break;
-                case "j":
-                    jR++;
-                    break;
-                case "k":
-                    kR++;
-                    break;
-                case "l":
-                    lR++;
-                    break;
-                case "m":
-                    mR++;
-                    break;
-                case "n":
-                    nR++;
-                    break;
-                case "o":
-                    oR++;
-                    break;
-                case "p":
-                    pR++;
-                    break;
-                case "q":
-                    qR++;
-                    break;
-                case "r":
-                    rR++;
-                    break;
-                case "s":
-                    sR++;
-                    break;
-                case "t":
-                    tR++;
-                    break;
-                case "u":
-                    uR++;
-                    break;
-                case "v":
-                    vR++;
-                    break;
-                case "w":
-                    wR++;
-                    break;
-                case "x":
-                    xR++;
-                    break;
-                case "y":
-                    yR++;
-                    break;
-                case "z":
-                    zR++;
-                    break;
-                case " ":
-                    zR++;
-                    break;
+                case "a" -> aR++;
+                case "b" -> bR++;
+                case "c" -> cR++;
+                case "d" -> dR++;
+                case "e" -> eR++;
+                case "f" -> fR++;
+                case "g" -> gR++;
+                case "h" -> hR++;
+                case "i" -> iR++;
+                case "j" -> jR++;
+                case "k" -> kR++;
+                case "l" -> lR++;
+                case "m" -> mR++;
+                case "n" -> nR++;
+                case "o" -> oR++;
+                case "p" -> pR++;
+                case "q" -> qR++;
+                case "r" -> rR++;
+                case "s" -> sR++;
+                case "t" -> tR++;
+                case "u" -> uR++;
+                case "v" -> vR++;
+                case "w" -> wR++;
+                case "x" -> xR++;
+                case "y" -> yR++;
+                case "z" -> zR++;
+                case " " -> spaceR++;
             }
         }
         //switch-case
     }
+    public void makeNodes(){
+        Node a = new Node("a",aR);
+        Node b = new Node("b",bR);
+        Node c = new Node("c",cR);
+        Node d = new Node("d",dR);
+        Node e = new Node("e",eR);
+        Node f = new Node("f",fR);
+        Node g = new Node("g",gR);
+        Node h = new Node("h",hR);
+        Node i = new Node("i",iR);
+        Node j = new Node("j",jR);
+        Node k = new Node("k",kR);
+        Node l = new Node("l",lR);
+        Node m = new Node("m",mR);
+        Node n = new Node("n",nR);
+        Node o = new Node("o",oR);
+        Node p = new Node("p",pR);
+        Node q = new Node("q",qR);
+        Node r = new Node("r",rR);
+        Node s = new Node("s",sR);
+        Node t = new Node("t",tR);
+        Node u = new Node("u",uR);
+        Node v = new Node("s",vR);
+        Node w = new Node("w",wR);
+        Node x = new Node("x",xR);
+        Node y = new Node("y",yR);
+        Node z = new Node("z",zR);
+        Node space = new Node(" ",spaceR);
+        //___________________________________________
+        Tree aTree = new Tree(a);
+        Tree bTree = new Tree(b);
+        Tree cTree = new Tree(c);
+        Tree dTree = new Tree(d);
+        Tree eTree = new Tree(e);
+        Tree fTree = new Tree(f);
+        Tree gTree = new Tree(g);
+        Tree hTree = new Tree(h);
+        Tree iTree = new Tree(i);
+        Tree jTree = new Tree(j);
+        Tree kTree = new Tree(k);
+        Tree lTree = new Tree(l);
+        Tree mTree = new Tree(m);
+        Tree nTree = new Tree(n);
+        Tree oTree = new Tree(o);
+        Tree pTree = new Tree(p);
+        Tree qTree = new Tree(q);
+        Tree rTree = new Tree(r);
+        Tree sTree = new Tree(s);
+        Tree tTree = new Tree(t);
+        Tree uTree = new Tree(u);
+        Tree vTree = new Tree(v);
+        Tree wTree = new Tree(w);
+        Tree xTree = new Tree(x);
+        Tree yTree = new Tree(y);
+        Tree zTree = new Tree(z);
+        Tree spaceTree = new Tree(space);
 
-    public void makeTree(String s) {
+    }
+    public void makeQueues(){
 
     }
 
