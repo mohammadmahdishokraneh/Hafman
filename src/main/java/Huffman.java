@@ -89,20 +89,17 @@ public class Huffman {
 
     public void writeCodedFile(byte b) throws IOException {
         File coddingFile = new File("Text.txt");
-        FileWriter fileWriter = new FileWriter(coddingFile);
-        BufferedWriter writer = new BufferedWriter(fileWriter);
-        writer.write(b);
-        writer.close();
-
-
-        //whit buffer writer
+        FileOutputStream f = new FileOutputStream(coddingFile);
+        ObjectOutputStream out = new ObjectOutputStream(f);
+        out.writeObject(b);
+        out.close();
     }
 
     public void readCodedFile() throws IOException {
         File coddingFile = new File("Text.txt");
-        FileReader fileWriter = new FileReader(coddingFile);
-        BufferedReader reader = new BufferedReader(fileWriter);
-        String s = reader.readLine();
+        FileInputStream f = new FileInputStream(coddingFile);
+        ObjectInputStream in = new ObjectInputStream(f);
+        byte b = (byte)in.readObject();
 
         //byte [] bytes =
 
