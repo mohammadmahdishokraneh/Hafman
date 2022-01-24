@@ -1,17 +1,23 @@
 public class Node {
-    private Element element;
+
+    private String str;
+    private int number;
     Node right;
     Node left;
 
-    public Node(Element element) {
-        this.element = element;
+    public String getStr() {
+        return str;
     }
 
-    public Element getElement() {
-        return element;
+    public void setStr(String str) {
+        this.str = str;
     }
 
-    public void setElement(Element element) {
-        this.element = element;
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }
