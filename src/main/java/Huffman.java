@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class Huffman {
     static int all = 0;
     QueueTree queueTree = new QueueTree();
@@ -49,13 +51,28 @@ public class Huffman {
 
     public void characterCodding() {
 
+
     }
 
-    public void codding() {
+    public void writeCodedFile(byte b) throws IOException {
+        File coddingFile = new File("Text.txt");
+        FileWriter fileWriter = new FileWriter(coddingFile );
+        BufferedWriter writer = new BufferedWriter(fileWriter);
+        writer.write(b);
+        writer.close();
+
+
         //whit buffer writer
     }
 
-    public void readCodedFile() {
+    public void readCodedFile() throws IOException {
+        File coddingFile = new File("Text.txt");
+        FileReader fileWriter = new FileReader(coddingFile );
+        BufferedReader reader = new BufferedReader(fileWriter);
+        String s = reader.readLine();
+
+        //byte [] bytes =
+
         //whit buffer reader
     }
 
