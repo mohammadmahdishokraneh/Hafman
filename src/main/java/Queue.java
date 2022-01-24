@@ -1,28 +1,37 @@
 import java.util.ArrayList;
 
 public class Queue {
-    ArrayList<Element> elements;
+    ArrayList<Node> nodes;
+    Node root;
 
     public Queue() {
-        elements = new ArrayList<>();
+        nodes = new ArrayList<>();
+    }
+
+    public Node getRoot() {
+        return root;
+    }
+
+    public void setRoot(Node root) {
+        this.root = root;
     }
 
     public boolean isEmpty(){
-        return elements.isEmpty();
+        return nodes.isEmpty();
     }
 
-    public void enQueue(Element element) {
-        elements.add(element);
+    public void enQueue(Node element) {
+        nodes.add(element);
     }
 
-    public Element deQueue() {
+    public Node deQueue() {
         if (!isEmpty()) {
-            Element minElement = elements.get(0);
-            for (int i = 1; i < elements.size(); i++)
-                if(minElement.getNumber() > elements.get(i).getNumber())
-                    minElement = elements.get(i);
+            Node minNode = nodes.get(0);
+            for (int i = 1; i < nodes.size(); i++)
+                if(minNode.getNumber() > nodes.get(i).getNumber())
+                    minNode = nodes.get(i);
 
-            return minElement;
+            return minNode;
         }
         System.out.println("Queue is empty!");
         return null;
