@@ -2,10 +2,11 @@ import java.io.*;
 
 public class Huffman {
     static int all = 0;
+    String main;
     QueueTree queueTree = new QueueTree();
 
     public void getMain() {
-        String main = Test.input.nextLine();
+        main = Test.input.nextLine();
 
         while (main.length() == 0) {
             System.out.println("The entrance is empty! Try again");
@@ -68,7 +69,6 @@ public class Huffman {
 
     }
 
-    public void writeCodedFile(byte b) {
     public void writeCodedFile(byte b) throws IOException {
         File coddingFile = new File("Text.txt");
         FileWriter fileWriter = new FileWriter(coddingFile );
@@ -90,6 +90,4 @@ public class Huffman {
 
         //whit buffer reader
     }
-
-
 }
