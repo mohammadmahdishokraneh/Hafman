@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.BitSet;
 
 public class Huffman {
     static int all = 0;
@@ -73,21 +74,15 @@ public class Huffman {
         File coddingFile = new File("Text.txt");
         FileOutputStream f = new FileOutputStream(coddingFile);
         ObjectOutputStream out = new ObjectOutputStream(f);
-        out.write(b);
-        //BufferedWriter writer = new BufferedWriter(fileWriter);
-       // writer.write(b);
-       // writer.close();
-
-
-        //whit buffer writer
+        out.writeObject(b);
+        out.close();
     }
 
-    public void readCodedFile() throws IOException {
+    public void readCodedFile() throws IOException, ClassNotFoundException {
         File coddingFile = new File("Text.txt");
         FileInputStream f = new FileInputStream(coddingFile);
         ObjectInputStream in = new ObjectInputStream(f);
-        //BufferedReader reader = new BufferedReader(fileWriter);
-        byte b = (byte) in.read();
+        byte b = (byte)in.readObject();
 
         //byte [] bytes =
 
