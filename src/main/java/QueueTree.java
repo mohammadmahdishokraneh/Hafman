@@ -1,19 +1,11 @@
 import java.util.ArrayList;
 
-public class Queue {
+public class QueueTree {
     ArrayList<Node> nodes;
     Node root;
 
-    public Queue() {
+    public QueueTree() {
         nodes = new ArrayList<>();
-    }
-
-    public Node getRoot() {
-        return root;
-    }
-
-    public void setRoot(Node root) {
-        this.root = root;
     }
 
     public boolean isEmpty(){
