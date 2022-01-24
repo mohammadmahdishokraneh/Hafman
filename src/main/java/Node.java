@@ -1,6 +1,7 @@
 public class Node {
 
-    private String str, code;
+    private final String str;
+    private String code;
     private int number;
     Node right;
     Node left;
@@ -12,10 +13,6 @@ public class Node {
 
     public String getStr() {
         return str;
-    }
-
-    public void setStr(String str) {
-        this.str = str;
     }
 
     public String getCode() {

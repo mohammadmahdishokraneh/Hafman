@@ -2,18 +2,18 @@ import java.io.*;
 
 public class Huffman {
     static int all = 0;
-    String main;
+    String[] mainSplit;
     QueueTree queueTree = new QueueTree();
 
     public void getMain() {
-        main = Test.input.nextLine();
+        String main = Test.input.nextLine();
 
         while (main.length() == 0) {
             System.out.println("The entrance is empty! Try again");
             main = Test.input.nextLine();
         }
 
-        String[] mainSplit = main.split("");
+        mainSplit = main.split("");
         all += mainSplit.length;
         checkRepetition(mainSplit);
     }
@@ -43,35 +43,53 @@ public class Huffman {
     }
 
     public void codeForLetter(Node node) {
-        if (node.left ==null && node.right == null) {
+        if (node.left == null && node.right == null) {
             queueTree.enQueue(node);
             return;
         }
 
-        if (queueTree.root == node){
+        if (queueTree.root == node) {
             node.right.setCode("1");
             codeForLetter(node.right);
             node.left.setCode("0");
             codeForLetter(node.left);
         }
 
-        if (node.right != null&&queueTree.root != node) {
+        if (node.right != null && queueTree.root != node) {
             node.right.setCode("1" + node.getCode());
             codeForLetter(node.right);
         }
-        if (node.left !=null&&queueTree.root != node) {
+        if (node.left != null && queueTree.root != node) {
             node.left.setCode("0" + node.getCode());
             codeForLetter(node.left);
         }
     }
 
-    public void compression(){
-
+    public void compression() throws IOException {
+        String result = "";
+        for (String s : mainSplit) {
+            for (int i = 0; i < queueTree.nodes.size(); i++) {
+                if (queueTree.nodes.get(i).getStr().equalsIgnoreCase(s)) {
+                    result += queueTree.nodes.get(i).getCode();
+                    break;
+                }
+            }
+        }
+        System.out.println(result);
+        mainSplit = result.split("");
+        byte b = 0;
+        for (int i = 1; i <= mainSplit.length; i++) {
+            b = (byte) (b << 1);
+            if (mainSplit[i].equalsIgnoreCase("1"))
+                b++;
+            if ((i&8) == 0)
+                writeCodedFile(b);
+        }
     }
 
     public void writeCodedFile(byte b) throws IOException {
         File coddingFile = new File("Text.txt");
-        FileWriter fileWriter = new FileWriter(coddingFile );
+        FileWriter fileWriter = new FileWriter(coddingFile);
         BufferedWriter writer = new BufferedWriter(fileWriter);
         writer.write(b);
         writer.close();
@@ -82,7 +100,7 @@ public class Huffman {
 
     public void readCodedFile() throws IOException {
         File coddingFile = new File("Text.txt");
-        FileReader fileWriter = new FileReader(coddingFile );
+        FileReader fileWriter = new FileReader(coddingFile);
         BufferedReader reader = new BufferedReader(fileWriter);
         String s = reader.readLine();
 
