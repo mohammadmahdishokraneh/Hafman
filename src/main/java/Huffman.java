@@ -5,9 +5,9 @@ public class Huffman {
     public void getMain() {
         String main = Test.input.nextLine();
 
-        if (main.length()==0) {
-            System.out.println("The entrance is empty!");
-            System.exit(0);
+        while (main.length() == 0) {
+            System.out.println("The entrance is empty! Try again");
+            main = Test.input.nextLine();
         }
 
         String[] mainSplit = main.split("");
@@ -16,26 +16,18 @@ public class Huffman {
     }
 
     public void checkRepetition(String[] str) {
-        Node node = new Node(str[0], 1);
-        queueTree.enQueue(node);
 
-        for (int i = 1; i < str.length; i++) {
-            for (int j = 0; j < queueTree.nodes.size(); j++) {
-                if (str[i].equalsIgnoreCase(queueTree.nodes.get(j).getStr())) {
-                    queueTree.nodes.get(j).setNumber(queueTree.nodes.get(j).getNumber() + 1);
-                    break;
-                }else{
-                    node.setStr(str[i]);
-                    node.setNumber(1);
-                    queueTree.enQueue(node);
-                }
+        for (String s : str) {
+            if (!queueTree.increase(s)) {
+                Node node = new Node(s, 1);
+                queueTree.enQueue(node);
             }
         }
     }
 
     public void huffmanTree() {
 
-        while (queueTree.nodes.size() != 1){
+        while (queueTree.nodes.size() != 1) {
             Node left = queueTree.deQueue();
             Node right = queueTree.deQueue();
             Node merge = left.merge(right);
@@ -47,11 +39,34 @@ public class Huffman {
         queueTree.root = queueTree.deQueue();
     }
 
-    public void characterCodding() {
+    public void codeForLetter(Node node) {
+        if (node.left ==null && node.right == null) {
+            queueTree.enQueue(node);
+            return;
+        }
+
+        if (queueTree.root == node){
+            node.right.setCode("1");
+            codeForLetter(node.right);
+            node.left.setCode("0");
+            codeForLetter(node.left);
+        }
+
+        if (node.right != null&&queueTree.root != node) {
+            node.right.setCode("1" + node.getCode());
+            codeForLetter(node.right);
+        }
+        if (node.left !=null&&queueTree.root != node) {
+            node.left.setCode("0" + node.getCode());
+            codeForLetter(node.left);
+        }
+    }
+
+    public void compression(){
 
     }
 
-    public void codding() {
+    public void writeCodedFile(byte b) {
         //whit buffer writer
     }
 

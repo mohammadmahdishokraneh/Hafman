@@ -1,6 +1,6 @@
 public class Node {
 
-    private String str;
+    private String str, code;
     private int number;
     Node right;
     Node left;
@@ -10,19 +10,20 @@ public class Node {
         this.number = number;
     }
 
-    public Node(String str, int number, Node right, Node left) {
-        this.str = str;
-        this.number = number;
-        this.right = right;
-        this.left = left;
-    }
-
     public String getStr() {
         return str;
     }
 
     public void setStr(String str) {
         this.str = str;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public int getNumber() {
