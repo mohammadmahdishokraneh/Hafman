@@ -76,31 +76,38 @@ public class Huffman {
             }
         }
         System.out.println(result);
+        byte bs[];
+        if (result.length()%8==0){
+            bs = new byte[(result.length() / 8)];
+        }else
+            bs = new byte[(result.length() / 8)+1];
         mainSplit = result.split("");
         byte b = 0;
         for (int i = 1; i <= mainSplit.length; i++) {
             b = (byte) (b << 1);
-            if (mainSplit[i].equalsIgnoreCase("1"))
+            if (mainSplit[i - 1].equalsIgnoreCase("1"))
                 b++;
-            if ((i&8) == 0)
-                writeCodedFile(b);
+            if ((i % 8) == 0 )
+                bs[(i/8)-1] = b;
+            else if (i == mainSplit.length)
+                bs[i/8] = b;
         }
+        writeCodedFile(bs);
     }
 
-    public void writeCodedFile(byte b) throws IOException {
+    public void writeCodedFile(byte[] b) throws IOException {
         File coddingFile = new File("Text.txt");
         FileOutputStream f = new FileOutputStream(coddingFile);
         ObjectOutputStream out = new ObjectOutputStream(f);
-        out.writeObject(b);
-        out.close();
+        out.write(b);
     }
 
-    public void readCodedFile() throws IOException {
+    public void readCodedFile() throws IOException, ClassNotFoundException {
         File coddingFile = new File("Text.txt");
         FileInputStream f = new FileInputStream(coddingFile);
         ObjectInputStream in = new ObjectInputStream(f);
-        byte b = (byte)in.readObject();
-
+        byte[] b = in.readAllBytes();
+        System.out.println(b[0]);
         //byte [] bytes =
 
         //whit buffer reader
