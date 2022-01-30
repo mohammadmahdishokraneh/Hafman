@@ -46,7 +46,7 @@ public class QueueTree {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Node node : nodes) {
-            s.append(node.getStr()).append(":").append(node.getNumber()).append(",code:").append(node.getCode()).append(" ");
+            s.append(node.getStr()).append(node.getCode()).append(" ");
         }
         return s.toString();
     }

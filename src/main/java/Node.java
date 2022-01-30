@@ -11,6 +11,11 @@ public class Node {
         this.number = number;
     }
 
+    public Node(String str, String code) {
+        this.str = str;
+        this.code = code;
+    }
+
     public String getStr() {
         return str;
     }
