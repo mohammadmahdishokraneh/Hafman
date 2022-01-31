@@ -81,8 +81,8 @@ public class Huffman {
             }
         }
         writeCodedFile(result);
+        all=+result.length();
         System.out.println(result);
-
 
     }
 
@@ -94,10 +94,9 @@ public class Huffman {
         BufferedWriter b = new BufferedWriter(x);
 
         byte buffer = 0;
-
         int n = s.length();
-        for (int i = 0; i < n; i++) {
 
+        for (int i = 0; i < n; i++) {
             buffer = (byte) (buffer * 2);
 
             if (s.charAt(i) == '1') {
@@ -108,7 +107,6 @@ public class Huffman {
                 buffer = 0;
             }
         }
-
         f.close();
         b.write(queueTree.toString());
         b.close();
@@ -122,84 +120,111 @@ public class Huffman {
         BufferedReader b = new BufferedReader(x);
         String codedString = "";
         StringBuilder decoded = new StringBuilder();
-
         byte[] bytes = in.readAllBytes();
+        ArrayList<Integer> c = new ArrayList<>();
         for (byte aByte : bytes) {
-            int k = aByte;
-            codedString = codedString + decToBinary(k);
-
-            //decToBinary((int) aByte);//
-        }
-        //codedString = Integer.toBinaryString(Integer.parseInt(codedString));
-        in.close();
-        System.out.println(codedString);
-        String s = b.readLine();
-        x.close();
-
-        String[] split = s.split(" ");
-        ArrayList<String> chars = new ArrayList<>();
-        ArrayList<String> codes = new ArrayList<>();
-        for (String value : split) {
-            if(value.charAt(0) == ' ')
-                chars.add(" ");
-
-            chars.add(value.substring(0, 1));
-            codes.add(value.substring(1));
+            c.add(Byte.hashCode(aByte));
         }
 
+        for (int j = 0; j < c.size() - 1; j++) {
+            String n = "";
+            if (c.get(j) < 0) {
+                n = n + "1";
+                c.set(j, 128 + c.get(j));
+            } else {
+                n = n + "0";
+            }
+            for (int i = 6; i >= 0; i--) {
+                int t = (int) Math.pow(2, i);
+                if (c.get(j) > t) {
+                    n = n + "1";
+                    c.set(j, c.get(j) - t);
 
-        for (int i = 0; i < chars.size(); i++) {
-            Node node = new Node(chars.get(i), codes.get(i));
-            queueTreeDecode.enQueue(node);
-        }
-        for (int i = 0; i < chars.size(); i++) {
+                } else {
+                    n = n + "0";
+                }
+                if (n.length() > 7) {
+                    codedString = codedString + n;
+                }
+            }
+            int remain = all - n.length();
+            if (remain >= 8) {
+                for (int i = 6; i >= 0; i--) {
+                    int t = (int) Math.pow(2, i);
+                    if (c.get(j) > t) {
+                        n = n + "1";
+                        c.set(j, c.get(j) - t);
+                    } else {
+                        n = n + "0"; }
+                    if (n.length() > 7) {
+                        codedString = codedString + n; }}}
+                    else {
+                        for (int i = remain; i >= 0; i--) {
+                            int t = (int) Math.pow(2, i);
+                            if (c.get(c.size()-1) > t) {
+                                n = n + "1";
+                                c.set(j, c.get(c.size()-1) - t);
+                            } else {
+                                n = n + "0"; }
+                            if (n.length() > 7) {
+                                codedString = codedString + n; }
+                    }
+                }
 
-            int length = queueTree.nodes.get(i).getCode().length();
 
-            if (queueTree.nodes.get(i).getCode().equals(codedString.substring(0, length + 1))) {
-                decoded.append(queueTree.nodes.get(i).getStr());
+                in.close();
+                System.out.println(codedString);
+                String s = b.readLine();
+                x.close();
 
-                codedString = codedString.substring(length + 1);
-                i++;
+                String[] split = s.split(".");
+                ArrayList<String> chars = new ArrayList<>();
+                ArrayList<String> codes = new ArrayList<>();
+                for (String value : split) {
+                    chars.add(value.substring(0, 1));
+                    codes.add(value.substring(1));
+                }
+
+                for (int i = 0; i < chars.size(); i++) {
+                    Node node = new Node(chars.get(i), codes.get(i));
+                    queueTreeDecode.enQueue(node);
+                }
+
+                for (int i = 0; i < chars.size(); i++) {
+
+                    int length = queueTreeDecode.nodes.get(i).getCode().length();
+
+                    if (queueTreeDecode.nodes.get(i).getCode().equals(codedString.substring(0, length + 1))) {
+                        decoded.append(queueTreeDecode.nodes.get(i).getStr());
+                        codedString = codedString.substring(length + 1);
+                    }
+                    if (i == chars.size() - 1) {
+                        i = 0;
+                    }
+                }
+                System.out.println(decoded);
             }
 
         }
-        System.out.println(decoded);
     }
 
-    public String decToBinary(int n) {
+//    byte[] fromBinary( String s )
+//    {
+//        int sLen = s.length();
+//        byte[] toReturn = new byte[(sLen + Byte.SIZE - 1) / Byte.SIZE];
+//        char c;
+//        for( int i = 0; i < sLen; i++ )
+//            if( (c = s.charAt(i)) == '1' )
+//                toReturn[i / Byte.SIZE] = (byte) (toReturn[i / Byte.SIZE] | (0x80 >>> (i % Byte.SIZE)));
+//            else if ( c != '0' )
+//                throw new IllegalArgumentException();
+//        return toReturn;
+//    }
 
-        int[] binaryNum = new int[1000];
-        int i = 0;
-        while (n > 0) {
-            binaryNum[i] = n % 2;
-            n = n / 2;
-            i++;
-        }
-        String bi = "";
-        for (int j = i - 1; j >= 0; j--)
-            bi = bi + binaryNum[j];
-
-        return bi;
-    }
-}
-
-
-//        System.out.println(result);
-//        byte bs[];
-//        if (result.length()%8==0){
-//            bs = new byte[(result.length() / 8)];
-//        }else
-//            bs = new byte[(result.length() / 8)+1];
-//        mainSplit = result.split("");
-//        byte b = 0;
-//        for (int i = 1; i <= mainSplit.length; i++) {
-//            b = (byte) (b << 1);
-//            if (mainSplit[i - 1].equalsIgnoreCase("1"))
-//                b++;
-//            if ((i % 8) == 0 )
-//                bs[(i/8)-1] = b;
-//            else if (i == mainSplit.length)
-//                bs[i/8] = b;
-//        }
-//        writeCodedFile(bs);
+//    String toBinary( byte[] bytes )
+//    {
+//        StringBuilder sb = new StringBuilder(bytes.length * Byte.SIZE);
+//        for( int i = 0; i < Byte.SIZE * bytes.length; i++ )
+//            sb.append((bytes[i / Byte.SIZE] << i % Byte.SIZE & 0x80) == 0 ? '0' : '1');
+//        return sb.toString();
+//    }

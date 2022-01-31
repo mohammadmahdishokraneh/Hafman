@@ -8,7 +8,7 @@ public class QueueTree {
         nodes = new ArrayList<>();
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return nodes.isEmpty();
     }
 
@@ -20,7 +20,7 @@ public class QueueTree {
         if (!isEmpty()) {
             Node minNode = nodes.get(0);
             for (int i = 1; i < nodes.size(); i++)
-                if(minNode.getNumber() > nodes.get(i).getNumber())
+                if (minNode.getNumber() > nodes.get(i).getNumber())
                     minNode = nodes.get(i);
             nodes.remove(minNode);
             return minNode;
@@ -29,7 +29,7 @@ public class QueueTree {
         return null;
     }
 
-    public boolean increase(String str){
+    public boolean increase(String str) {
         if (nodes.size() == 0)
             return false;
 
@@ -46,24 +46,9 @@ public class QueueTree {
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Node node : nodes) {
-            s.append(node.getStr()).append(node.getCode()).append(" ");
+            s.append(node.getStr()).append(node.getCode()).append(".");
         }
         return s.toString();
     }
 
-    void inorderTraversal(Node t) {
-        if (t != null) {
-            inorderTraversal(t.left);
-            System.out.print(t.getStr() + ":" + t.getNumber() + " ");
-            inorderTraversal(t.right);
-        }
-    }
-
-    void preorderTraversal(Node t) {
-        if (t != null) {
-            System.out.print(t.getStr() + ":" + t.getNumber() + " ");
-            preorderTraversal(t.left);
-            preorderTraversal(t.right);
-        }
-    }
 }

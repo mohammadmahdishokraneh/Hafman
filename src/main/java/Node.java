@@ -36,7 +36,7 @@ public class Node {
         this.number = number;
     }
 
-    public Node merge(Node node){
+    public Node merge(Node node) {
         return new Node(this.str + node.str, this.number + node.number);
     }
 }
