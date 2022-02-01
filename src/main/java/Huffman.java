@@ -63,11 +63,11 @@ public class Huffman {
         }
 
         if (node.right != null && queueTree.root != node) {
-            node.right.setCode("1" + node.getCode());
+            node.right.setCode(node.getCode()+"1" );
             codeForLetter(node.right);
         }
         if (node.left != null && queueTree.root != node) {
-            node.left.setCode("0" + node.getCode());
+            node.left.setCode(  node.getCode()+"0");
             codeForLetter(node.left);
         }
     }
@@ -127,7 +127,6 @@ public class Huffman {
         for (byte aByte : bytes) {
 
         }
-
 //        for (int j = 0; j < c.size() - 1; j++) {
 //            String n = "";
 //            if (c.get(j) < 0) {
@@ -216,21 +215,17 @@ public class Huffman {
             Node node = new Node(chars.get(i), codes.get(i));
             queueTreeDecode.nodes.add(node);
         }
-        String decoded = "";
-        int i =0;
+        String decoded ="";
         while (!result.equals("")) {
-            int length = queueTreeDecode.nodes.get(i).getCode().length();
-
-            if (result.substring(0, length + 1).equals(queueTreeDecode.nodes.get(i).getCode())) {
-                decoded = decoded + (queueTreeDecode.nodes.get(i).getStr());
-                result =result.substring(length + 2);
-                System.out.println(length);
-            }
-            i++;
-            if (i == queueTreeDecode.nodes.size()-1) {
-                i = 0;
-            }
-        }
+            for(int i = 0; i < queueTreeDecode.nodes.size();i++){
+                int length = queueTreeDecode.nodes.get(i).getCode().length();
+                if (result.length() >= length){
+                if (result.substring(0, length).equals(queueTreeDecode.nodes.get(i).getCode())) {
+                    decoded = decoded + (queueTreeDecode.nodes.get(i).getStr());
+                    result =result.substring(length);
+                    break;
+                }
+            }}}
         JOptionPane.showMessageDialog(f, decoded);
     }
 
