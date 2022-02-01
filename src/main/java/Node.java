@@ -6,15 +6,16 @@ public class Node {
     Node right;
     Node left;
 
+    public Node(String str, String code) {
+        this.str = str;
+        this.code = code;
+    }
     public Node(String str, int number) {
         this.str = str;
         this.number = number;
     }
 
-    public Node(String str, String code) {
-        this.str = str;
-        this.code = code;
-    }
+
 
     public String getStr() {
         return str;
