@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Huffman {
-    static int all = 0;
     String[] mainSplit;
     QueueTree queueTree = new QueueTree();
     QueueTree queueTreeDecode = new QueueTree();
@@ -21,7 +20,6 @@ public class Huffman {
         }
 
         mainSplit = main.split("");
-        all += mainSplit.length;
         checkRepetition(mainSplit);
     }
 
@@ -122,57 +120,8 @@ public class Huffman {
         String codedString = "";
         String decoded = "";
         byte[] bytes = in.readAllBytes();
-        //ArrayList<Integer> c = new ArrayList<>();
         codedString = codedString + toBinary(bytes);
-        for (byte aByte : bytes) {
-
-        }
-//        for (int j = 0; j < c.size() - 1; j++) {
-//            String n = "";
-//            if (c.get(j) < 0) {
-//                n = n + "1";
-//                c.set(j, 128 + c.get(j));
-//            } else {
-//                n = n + "0";
-//            }
-//            for (int i = 6; i >= 0; i--) {
-//                int t = (int) Math.pow(2, i);
-//                if (c.get(j) > t) {
-//                    n = n + "1";
-//                    c.set(j, c.get(j) - t);
-//
-//                } else {
-//                    n = n + "0";
-//                }
-//                if (n.length() > 7) {
-//                    codedString = codedString + n;
-//                }
-//            }
-//            int remain = all - n.length();
-//            if (remain >= 8) {
-//                for (int i = 6; i >= 0; i--) {
-//                    int t = (int) Math.pow(2, i);
-//                    if (c.get(j) > t) {
-//                        n = n + "1";
-//                        c.set(j, c.get(j) - t);
-//                    } else {
-//                        n = n + "0"; }
-//                    if (n.length() > 7) {
-//                        codedString = codedString + n; }}}
-//                    else {
-//                        for (int i = remain; i >= 0; i--) {
-//                            int t = (int) Math.pow(2, i);
-//                            if (c.get(c.size()-1) > t) {
-//                                n = n + "1";
-//                                c.set(j, c.get(c.size()-1) - t);
-//                            } else {
-//                                n = n + "0"; }
-//                            if (n.length() > 7) {
-//                                codedString = codedString + n; }
-//                    }
-//                }
         in.close();
-        System.out.println(codedString);
         String s = b.readLine();
         x.close();
         System.out.println(s);
@@ -187,21 +136,19 @@ public class Huffman {
             Node node = new Node(chars.get(i), codes.get(i));
             queueTreeDecode.nodes.add(node);
         }
-
-        int i = 0;
         while (!codedString.equals("")) {
-            int length = queueTreeDecode.nodes.get(i).getCode().length();
-            if (codedString.substring(0, length + 1).equals(queueTreeDecode.nodes.get(i).getCode())) {
-                decoded = decoded + (queueTreeDecode.nodes.get(i).getStr());
-                codedString = codedString.substring(length + 1);
-            }
-            i++;
-            if (i == queueTreeDecode.nodes.size()) {
-                i = 0;
-            }
-        }
-        JOptionPane.showMessageDialog(f, queueTreeDecode.nodes.get(i).getCode());
+            for(int i = 0; i < queueTreeDecode.nodes.size();i++){
+                int length = queueTreeDecode.nodes.get(i).getCode().length();
+                if (codedString.length() >= length){
+                    if (codedString.substring(0, length).equals(queueTreeDecode.nodes.get(i).getCode())) {
+                        decoded = decoded + (queueTreeDecode.nodes.get(i).getStr());
+                        codedString =codedString.substring(length);
+                        break;
+                    }
+                }}}
+        JOptionPane.showMessageDialog(f, decoded);
     }
+
     public void decode(){
         String letters = queueTree.toString().substring(0,queueTree.toString().length()-1);
         String[] split = letters.split("\\.");
