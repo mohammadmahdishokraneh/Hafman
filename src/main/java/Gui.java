@@ -8,22 +8,24 @@ public class Gui extends WindowAdapter {
         String inp = JOptionPane.showInputDialog("choose: 1.encode  2.decode  3.encode then decode ");
         Huffman huffman = new Huffman();
 
-        if(inp.equals("1")){
+        if (inp.equals("1")) {
 
             huffman.getMain();
             huffman.huffmanTree();
             huffman.codeForLetter(huffman.queueTree.root);
             huffman.compression();
         }
-        if(inp.equals("2")){
+        if (inp.equals("2")) {
             huffman.readCodedFile();
+
         }
-        if (inp.equals("3")){
+        if (inp.equals("3")) {
             huffman.getMain();
             huffman.huffmanTree();
             huffman.codeForLetter(huffman.queueTree.root);
             huffman.compression();
-            huffman.decode();
+            huffman.Preparation(huffman.queueTree.toString().substring(0, huffman.queueTree.toString().length() - 1));
+            huffman.decode(huffman.result);
         }
     }
 

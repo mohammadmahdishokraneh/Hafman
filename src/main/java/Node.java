@@ -10,11 +10,11 @@ public class Node {
         this.str = str;
         this.code = code;
     }
+
     public Node(String str, int number) {
         this.str = str;
         this.number = number;
     }
-
 
 
     public String getStr() {

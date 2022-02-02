@@ -8,7 +8,7 @@ public class Huffman {
     QueueTree queueTree = new QueueTree();
     QueueTree queueTreeDecode = new QueueTree();
     JFrame f = new JFrame();
-    String result ="";
+    String result = "";
 
     public void getMain() {
 
@@ -61,11 +61,11 @@ public class Huffman {
         }
 
         if (node.right != null && queueTree.root != node) {
-            node.right.setCode(node.getCode()+"1" );
+            node.right.setCode(node.getCode() + "1");
             codeForLetter(node.right);
         }
         if (node.left != null && queueTree.root != node) {
-            node.left.setCode(  node.getCode()+"0");
+            node.left.setCode(node.getCode() + "0");
             codeForLetter(node.left);
         }
     }
@@ -81,8 +81,21 @@ public class Huffman {
             }
         }
         writeCodedFile(result);
-        System.out.println(result);
 
+    }
+
+    public void Preparation(String let) {
+        String[] split = let.split("\\.");
+        ArrayList<String> chars = new ArrayList<>();
+        ArrayList<String> codes = new ArrayList<>();
+        for (String value : split) {
+            chars.add(value.substring(0, 1));
+            codes.add(value.substring(1));
+        }
+        for (int i = 0; i < chars.size(); i++) {
+            Node node = new Node(chars.get(i), codes.get(i));
+            queueTreeDecode.nodes.add(node);
+        }
     }
 
     public void writeCodedFile(String s) throws IOException {
@@ -118,61 +131,29 @@ public class Huffman {
         FileReader x = new FileReader(letterCoddingFile);
         BufferedReader b = new BufferedReader(x);
         String codedString = "";
-        String decoded = "";
         byte[] bytes = in.readAllBytes();
         codedString = codedString + toBinary(bytes);
         in.close();
         String s = b.readLine();
         x.close();
-        System.out.println(s);
-        String[] split = s.split("\\.");
-        ArrayList<String> chars = new ArrayList<>();
-        ArrayList<String> codes = new ArrayList<>();
-        for (String value : split) {
-            chars.add(value.substring(0, 1));
-            codes.add(value.substring(1));
-        }
-        for (int i = 0; i < chars.size(); i++) {
-            Node node = new Node(chars.get(i), codes.get(i));
-            queueTreeDecode.nodes.add(node);
-        }
-        while (!codedString.equals("")) {
-            for(int i = 0; i < queueTreeDecode.nodes.size();i++){
-                int length = queueTreeDecode.nodes.get(i).getCode().length();
-                if (codedString.length() >= length){
-                    if (codedString.substring(0, length).equals(queueTreeDecode.nodes.get(i).getCode())) {
-                        decoded = decoded + (queueTreeDecode.nodes.get(i).getStr());
-                        codedString =codedString.substring(length);
-                        break;
-                    }
-                }}}
-        JOptionPane.showMessageDialog(f, decoded);
+        Preparation(s);
+        decode(codedString);
     }
 
-    public void decode(){
-        String letters = queueTree.toString().substring(0,queueTree.toString().length()-1);
-        String[] split = letters.split("\\.");
-        ArrayList<String> chars = new ArrayList<>();
-        ArrayList<String> codes = new ArrayList<>();
-        for (String value : split) {
-            chars.add(value.substring(0, 1));
-            codes.add(value.substring(1));
-        }
-        for (int i = 0; i < chars.size(); i++) {
-            Node node = new Node(chars.get(i), codes.get(i));
-            queueTreeDecode.nodes.add(node);
-        }
-        String decoded ="";
+    public void decode(String result) {
+        String decoded = "";
         while (!result.equals("")) {
-            for(int i = 0; i < queueTreeDecode.nodes.size();i++){
+            for (int i = 0; i < queueTreeDecode.nodes.size(); i++) {
                 int length = queueTreeDecode.nodes.get(i).getCode().length();
-                if (result.length() >= length){
-                if (result.substring(0, length).equals(queueTreeDecode.nodes.get(i).getCode())) {
-                    decoded = decoded + (queueTreeDecode.nodes.get(i).getStr());
-                    result =result.substring(length);
-                    break;
+                if (result.length() >= length) {
+                    if (result.substring(0, length).equals(queueTreeDecode.nodes.get(i).getCode())) {
+                        decoded = decoded + (queueTreeDecode.nodes.get(i).getStr());
+                        result = result.substring(length);
+                        break;
+                    }
                 }
-            }}}
+            }
+        }
         JOptionPane.showMessageDialog(f, decoded);
     }
 
@@ -183,4 +164,5 @@ public class Huffman {
             sb.append((bytes[i / Byte.SIZE] << i % Byte.SIZE & 0x80) == 0 ? '0' : '1');
         return sb.toString();
     }
+
 }
